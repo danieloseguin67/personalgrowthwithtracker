@@ -1,0 +1,350 @@
+.entry-page {
+  padding-top: 24px;
+}
+
+.entry-header {
+  margin-bottom: 24px;
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    margin-bottom: 6px;
+  }
+
+  .date-label {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+  }
+
+  .gentle-note {
+    color: var(--sage);
+    font-size: 0.9rem;
+    font-style: italic;
+  }
+}
+
+.entry-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* ── Section ─────────────────────────────────────────────────── */
+.form-section {
+  .section-title {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .section-hint {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+}
+
+.value-badge {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 500;
+  background: var(--sage-pale);
+  color: var(--sage);
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+}
+
+.count-badge {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  background: var(--lavender-pale);
+  color: var(--lavender);
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  font-weight: 500;
+}
+
+/* ── Mood ────────────────────────────────────────────────────── */
+.mood-grid {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.mood-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 14px 18px;
+  background: var(--surface-alt);
+  border: 2px solid transparent;
+  border-radius: var(--radius-md);
+  transition: all var(--transition);
+  min-width: 80px;
+
+  .mood-emoji { font-size: 1.4rem; margin-bottom: 4px; }
+  .mood-label { font-size: 0.78rem; color: var(--text-muted); font-weight: 500; }
+
+  &:hover { border-color: var(--sage-light); }
+  &.selected {
+    background: var(--sage-pale);
+    border-color: var(--sage);
+    .mood-label { color: var(--sage); font-weight: 600; }
+  }
+}
+
+/* ── Level picker (energy & confidence cards) ────────────────── */
+.level-picker {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-top: 4px;
+
+  @media (max-width: 560px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 380px) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.level-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 14px 8px 12px;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--border);
+  background: white;
+  cursor: pointer;
+  text-align: center;
+  transition: border-color var(--transition), background var(--transition), transform 0.15s ease;
+
+  &:hover {
+    border-color: var(--sage-light);
+    background: var(--sage-pale);
+    transform: translateY(-2px);
+  }
+
+  .level-emoji {
+    font-size: 1.5rem;
+    line-height: 1;
+  }
+
+  .level-label {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.2;
+  }
+
+  .level-desc {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    line-height: 1.35;
+    display: none;
+  }
+
+  &.selected {
+    border-width: 2px;
+    transform: translateY(-2px);
+
+    .level-desc { display: block; }
+  }
+
+  &.energy.selected {
+    border-color: var(--sage);
+    background: var(--sage-pale);
+    .level-label { color: var(--sage); }
+  }
+
+  &.confidence.selected {
+    border-color: var(--lavender);
+    background: var(--lavender-pale);
+    .level-label { color: var(--lavender); }
+  }
+}
+
+/* ── Tags ────────────────────────────────────────────────────── */
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--sage-pale);
+  color: var(--sage);
+  border: 1px solid var(--sage-light);
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 0.85rem;
+
+  &.boundary-tag { background: var(--lavender-pale); color: var(--lavender); border-color: var(--lavender-light); }
+  &.learning-tag { background: var(--amber-pale); color: var(--amber); border-color: rgba(244,162,97,0.4); }
+}
+
+.tag-remove {
+  font-size: 1rem;
+  color: inherit;
+  opacity: 0.6;
+  line-height: 1;
+  padding: 0 2px;
+  &:hover { opacity: 1; }
+}
+
+.tag-input-row {
+  display: flex;
+  gap: 8px;
+}
+
+.tag-input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--text);
+  background: var(--surface-alt);
+  transition: border-color var(--transition);
+  outline: none;
+
+  &:focus { border-color: var(--sage); }
+  &::placeholder { color: var(--text-light); }
+}
+
+.add-btn {
+  padding: 10px 18px;
+  background: var(--sage);
+  color: white;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 0.88rem;
+  transition: background var(--transition);
+
+  &:hover:not(:disabled) { background: #5fa090; }
+  &:disabled { opacity: 0.4; }
+}
+
+/* ── Notes ───────────────────────────────────────────────────── */
+.notes-area {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--text);
+  background: var(--surface-alt);
+  resize: vertical;
+  outline: none;
+  line-height: 1.6;
+  transition: border-color var(--transition);
+
+  &:focus { border-color: var(--sage); }
+  &::placeholder { color: var(--text-light); }
+}
+
+.char-count {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-light);
+  text-align: right;
+  margin-top: 4px;
+}
+
+/* ── Positive Vibes nudge ────────────────────────────────────── */
+.vibes-nudge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--amber-pale);
+  border: 1px solid var(--amber-light);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+
+  .vibes-nudge-icon { font-size: 1.3rem; flex-shrink: 0; }
+
+  .vibes-nudge-text {
+    flex: 1;
+    font-size: 0.88rem;
+    color: var(--text);
+    line-height: 1.5;
+
+    strong { font-weight: 600; color: var(--text); }
+  }
+
+  .vibes-nudge-btn {
+    padding: 8px 16px;
+    background: var(--amber);
+    color: white;
+    border-radius: var(--radius-pill);
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: background var(--transition);
+
+    &:hover { background: #e08e4a; }
+  }
+}
+
+/* ── Save ────────────────────────────────────────────────────── */
+.save-row {
+  display: flex;
+  justify-content: center;
+  padding-top: 8px;
+}
+
+.save-btn {
+  padding: 14px 40px;
+  background: var(--sage);
+  color: white;
+  border-radius: var(--radius-pill);
+  font-size: 1rem;
+  font-weight: 600;
+  box-shadow: var(--shadow-sm);
+  transition: background var(--transition), transform var(--transition);
+
+  &:hover { background: #5fa090; transform: translateY(-1px); }
+}
+
+.save-success {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--sage);
+  font-weight: 600;
+  font-size: 1rem;
+  animation: fadeIn 0.3s ease;
+
+  .success-icon { font-size: 1.4rem; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 600px) {
+  .entry-card { padding: 20px; }
+  .mood-btn { min-width: 65px; padding: 10px; }
+}

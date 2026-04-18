@@ -1,0 +1,81 @@
+<div class="send-vibe-overlay" *ngIf="visible" (click)="onOverlayClick($event)" role="dialog" aria-modal="true" aria-label="Send a vibe">
+  <div class="send-vibe-modal">
+
+    <button class="close-btn" (click)="close()" aria-label="Close">×</button>
+
+    <!-- Sent confirmation -->
+    <div class="sent-screen" *ngIf="sent">
+      <span class="sent-icon">💌</span>
+      <h2>Your message is on its way!</h2>
+      <p>A little kindness sent out into the world. That matters. 🌿</p>
+    </div>
+
+    <!-- Step 1: Pick praise type -->
+    <ng-container *ngIf="!sent && step === 'pick'">
+      <div class="modal-header">
+        <span class="header-icon">💌</span>
+        <h2>Send some good vibes</h2>
+        <p>Pick a message to send to someone who deserves to hear it today.</p>
+      </div>
+
+      <!-- Recipient fields -->
+      <div class="recipient-row">
+        <div class="field">
+          <label for="recipientName">Their name <span class="optional">(optional)</span></label>
+          <input id="recipientName" type="text" [(ngModel)]="recipientName"
+            placeholder="e.g. Sarah" autocomplete="off" maxlength="60" />
+        </div>
+        <div class="field">
+          <label for="recipientEmail">Their email <span class="optional">(optional)</span></label>
+          <input id="recipientEmail" type="email" [(ngModel)]="recipientEmail"
+            placeholder="e.g. sarah@example.com" autocomplete="off" />
+        </div>
+        <div class="field">
+          <label for="senderName">Your name <span class="optional">(optional — for sign-off)</span></label>
+          <input id="senderName" type="text" [(ngModel)]="senderName"
+            placeholder="e.g. Alex" autocomplete="off" maxlength="60" />
+        </div>
+      </div>
+
+      <!-- Praise type grid -->
+      <div class="praise-grid">
+        <button *ngFor="let p of praiseTypes"
+          class="praise-card"
+          [class.selected]="selectedPraiseId === p.id"
+          (click)="selectPraise(p.id)"
+          type="button">
+          <span class="praise-emoji">{{ p.emoji }}</span>
+          <span class="praise-label">{{ p.label }}</span>
+        </button>
+      </div>
+
+      <button class="next-btn" (click)="toCompose()" [disabled]="!selectedPraiseId">
+        Preview & send →
+      </button>
+    </ng-container>
+
+    <!-- Step 2: Compose / preview -->
+    <ng-container *ngIf="!sent && step === 'compose'">
+      <div class="modal-header">
+        <span class="header-icon">{{ selectedPraise?.emoji }}</span>
+        <h2>{{ selectedPraise?.label }}</h2>
+        <p>Edit the message if you'd like, then send it.</p>
+      </div>
+
+      <div class="compose-area">
+        <textarea [(ngModel)]="customMessage" rows="10" class="message-editor"
+          aria-label="Message body"></textarea>
+        <p class="sign-off-hint">Your name will be appended as the sign-off at the end.</p>
+      </div>
+
+      <div class="compose-actions">
+        <button class="back-btn" (click)="back()">← Back</button>
+        <button class="send-btn" (click)="send()">
+          Open in email app 📨
+        </button>
+      </div>
+    </ng-container>
+
+  </div>
+</div>
+

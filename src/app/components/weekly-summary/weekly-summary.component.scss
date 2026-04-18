@@ -1,0 +1,160 @@
+.summary-page {
+  padding-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── Hero ─────────────────────────────────────────────────────── */
+.summary-hero {
+  background: linear-gradient(135deg, var(--lavender-pale), var(--sage-pale));
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  text-align: center;
+
+  h1 { font-family: var(--font-display); font-size: 1.8rem; margin-bottom: 8px; }
+  .week-range { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 12px; }
+  .summary-message {
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--text);
+    max-width: 480px;
+    margin: 0 auto;
+  }
+}
+
+/* ── Cards ────────────────────────────────────────────────────── */
+.day-dots-card, .stats-card, .collection-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+/* ── Day Dots ─────────────────────────────────────────────────── */
+.day-dots {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.day-dot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  min-width: 44px;
+
+  .dot-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; }
+  .dot-circle {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--surface-alt);
+    border: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: all var(--transition);
+  }
+  .dot-empty { color: var(--text-light); font-size: 1.5rem; }
+
+  &.logged .dot-circle { background: var(--sage-pale); border-color: var(--sage-light); }
+  &.today .dot-circle { border-color: var(--sage); border-width: 3px; }
+}
+
+.days-note {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ── Stats Grid ──────────────────────────────────────────────── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 16px;
+}
+
+.stat-item {
+  text-align: center;
+
+  .stat-val {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--sage);
+    line-height: 1;
+
+    .stat-denom { font-size: 1rem; font-weight: 400; color: var(--text-light); }
+  }
+  .stat-lbl { font-size: 0.8rem; color: var(--text-muted); margin: 6px 0; }
+  &.highlight .stat-val { color: var(--lavender); }
+}
+
+.stat-bar-track {
+  background: var(--surface-alt);
+  height: 6px;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-top: 6px;
+}
+
+.stat-bar {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.5s ease;
+  &.energy-fill { background: var(--sage); }
+  &.conf-fill { background: var(--lavender); }
+}
+
+/* ── Collections ─────────────────────────────────────────────── */
+.collection-card {
+  &.boundaries { border-left: 3px solid var(--lavender); }
+  &.learning { border-left: 3px solid var(--amber); }
+}
+
+.collection-note {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-bottom: 14px;
+}
+
+.collection-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  li {
+    padding: 8px 14px 8px 24px;
+    background: var(--surface-alt);
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    position: relative;
+
+    &::before {
+      content: '·';
+      position: absolute;
+      left: 10px;
+      color: var(--sage);
+      font-size: 1.4rem;
+      line-height: 0.8;
+      top: 8px;
+    }
+  }
+}
+
+/* ── Encouragement footer ────────────────────────────────────── */
+.encouragement-footer {
+  background: var(--sage-pale);
+  border: 1px solid var(--sage-light);
+  border-radius: var(--radius-md);
+  padding: 28px;
+  text-align: center;
+
+  p { color: var(--text-muted); font-style: italic; margin-bottom: 16px; }
+}

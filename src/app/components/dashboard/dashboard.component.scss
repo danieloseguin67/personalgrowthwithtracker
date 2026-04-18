@@ -1,0 +1,242 @@
+.dashboard-page {
+  padding-top: 24px;
+}
+
+/* ── Hero ─────────────────────────────────────────────────────── */
+.hero-banner {
+  background: linear-gradient(135deg, var(--sage-pale) 0%, var(--lavender-pale) 100%);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+  }
+
+  .encouraging {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    font-style: italic;
+    margin-bottom: 6px;
+    max-width: 420px;
+  }
+
+  .today-date {
+    font-size: 0.85rem;
+    color: var(--text-light);
+  }
+}
+
+/* ── Cards ────────────────────────────────────────────────────── */
+.today-card, .week-card, .chart-card, .recent-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+/* ── Today Grid ──────────────────────────────────────────────── */
+.today-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 16px;
+}
+
+.today-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--surface-alt);
+  border-radius: var(--radius-md);
+  padding: 16px 8px;
+  text-align: center;
+
+  .stat-emoji { font-size: 1.5rem; margin-bottom: 6px; }
+  .stat-label { font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
+  .stat-value { font-weight: 600; font-size: 1rem; margin-top: 4px; }
+}
+
+/* ── Gentle nudge ─────────────────────────────────────────────── */
+.gentle-nudge {
+  background: var(--amber-pale);
+  border: 1px solid rgba(244,162,97,0.3);
+  border-radius: var(--radius-md);
+  padding: 20px 24px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  .nudge-icon { font-size: 1.8rem; flex-shrink: 0; }
+  p { color: var(--text-muted); font-size: 0.93rem; line-height: 1.5; }
+}
+
+/* ── Week Stats ──────────────────────────────────────────────── */
+.week-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.week-stat {
+  text-align: center;
+  padding: 12px;
+  background: var(--sage-pale);
+  border-radius: var(--radius-sm);
+
+  .ws-number {
+    display: block;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--sage);
+  }
+  .ws-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+}
+
+.view-summary-link {
+  font-size: 0.88rem;
+  color: var(--sage);
+  font-weight: 500;
+  &:hover { text-decoration: underline; }
+}
+
+/* ── Chart ───────────────────────────────────────────────────── */
+.chart-container {
+  height: 220px;
+  position: relative;
+}
+
+/* ── Entry List ──────────────────────────────────────────────── */
+.entry-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.entry-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+
+  &:last-child { border-bottom: none; }
+
+  .entry-date { font-size: 0.82rem; color: var(--text-muted); min-width: 110px; }
+  .entry-mood { font-size: 1.1rem; }
+}
+
+.entry-bars {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.mini-bar {
+  height: 6px;
+  border-radius: 3px;
+  min-width: 4px;
+  transition: width 0.3s ease;
+
+  &.energy-bar { background: var(--sage); }
+  &.conf-bar { background: var(--lavender); }
+}
+
+.entry-tags {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.mini-tag {
+  font-size: 0.75rem;
+  background: var(--surface-alt);
+  border-radius: var(--radius-pill);
+  padding: 2px 8px;
+  color: var(--text-muted);
+}
+
+/* ── Positive Vibes strip ───────────────────────────────────── */
+.vibes-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: linear-gradient(135deg, var(--amber-pale), #fff9f0);
+  border: 1px solid var(--amber-light);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+
+  .vibes-strip-text {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+  }
+
+  .vibes-strip-btn {
+    padding: 10px 22px;
+    background: var(--amber);
+    color: white;
+    border-radius: var(--radius-pill);
+    font-size: 0.9rem;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: background var(--transition), transform var(--transition);
+
+    &:hover { background: #e08e4a; transform: translateY(-1px); }
+  }
+}
+
+/* ── Send a vibe strip ──────────────────────────────────────── */
+.send-vibe-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: linear-gradient(135deg, var(--lavender-pale), #faf8ff);
+  border: 1px solid var(--lavender-light);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+
+  .send-vibe-strip-text {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+
+    strong { font-size: 0.95rem; color: var(--text); }
+    span   { font-size: 0.82rem; color: var(--text-muted); }
+  }
+
+  .send-vibe-strip-btn {
+    padding: 10px 22px;
+    background: var(--lavender);
+    color: white;
+    border-radius: var(--radius-pill);
+    font-size: 0.9rem;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: background var(--transition), transform var(--transition);
+
+    &:hover { background: #9575cd; transform: translateY(-1px); }
+  }
+}

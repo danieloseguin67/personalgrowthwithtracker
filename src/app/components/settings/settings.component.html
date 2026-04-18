@@ -1,0 +1,109 @@
+<div class="settings-page">
+  <div class="settings-header">
+    <h1>Settings ⚙️</h1>
+    <p>Customise your experience and manage your data.</p>
+  </div>
+
+  <div class="settings-card" *ngIf="settings">
+
+    <!-- Reminders -->
+    <section class="settings-section">
+      <h2 class="settings-section-title">🔔 Daily Reminders</h2>
+      <p class="settings-hint">Get a gentle nudge to check in each day.</p>
+
+      <div class="toggle-row">
+        <label class="toggle-label">Enable reminders</label>
+        <label class="toggle-switch">
+          <input type="checkbox" [(ngModel)]="settings.remindersEnabled" (change)="toggleReminders()" />
+          <span class="toggle-track"><span class="toggle-thumb"></span></span>
+        </label>
+      </div>
+
+      <div class="reminder-details" *ngIf="settings.remindersEnabled">
+        <div class="form-row">
+          <label>Reminder time</label>
+          <input type="time" [(ngModel)]="settings.reminderTime" class="time-input" />
+        </div>
+
+        <div class="form-row">
+          <label>Days</label>
+          <div class="day-buttons">
+            <button *ngFor="let d of [0,1,2,3,4,5,6]"
+              class="day-btn"
+              [class.selected]="isDaySelected(d)"
+              (click)="toggleDay(d)">
+              {{ dayLabels[d] }}
+            </button>
+          </div>
+        </div>
+
+        <p class="perm-warning" *ngIf="settings.notificationsPermission === 'denied'">
+          ⚠️ Browser notifications are blocked. Please enable them in your browser settings.
+        </p>
+      </div>
+    </section>
+
+    <!-- Google Drive -->
+    <section class="settings-section">
+      <h2 class="settings-section-title">☁️ Google Drive Backup</h2>
+      <p class="settings-hint">
+        Backup and restore your data via your own Google Drive.
+        You'll need a Google Cloud OAuth 2.0 Client ID with the Drive API enabled.
+        <a href="https://console.cloud.google.com/" target="_blank" rel="noopener noreferrer" class="settings-link">
+          Get one here →
+        </a>
+      </p>
+
+      <div class="form-row">
+        <label>Google Client ID</label>
+        <input type="text" [(ngModel)]="settings.googleClientId" class="text-input"
+          placeholder="Paste your OAuth 2.0 client ID here..." />
+      </div>
+
+      <div class="drive-actions">
+        <button class="drive-btn upload" (click)="uploadToDrive()" [disabled]="driveLoading || !settings.googleClientId">
+          <span *ngIf="!driveLoading">⬆️ Upload to Google Drive</span>
+          <span *ngIf="driveLoading">⏳ Working...</span>
+        </button>
+        <button class="drive-btn download" (click)="downloadFromDrive()" [disabled]="driveLoading || !settings.googleClientId">
+          <span *ngIf="!driveLoading">⬇️ Restore from Google Drive</span>
+          <span *ngIf="driveLoading">⏳ Working...</span>
+        </button>
+      </div>
+
+      <p class="drive-status success" *ngIf="driveStatus">{{ driveStatus }}</p>
+      <p class="drive-status error" *ngIf="driveError">{{ driveError }}</p>
+    </section>
+
+    <!-- Local backup -->
+    <section class="settings-section">
+      <h2 class="settings-section-title">💾 Local Backup</h2>
+      <p class="settings-hint">Download your data as a JSON file or import from a previous backup.</p>
+
+      <div class="local-actions">
+        <button class="local-btn" (click)="downloadLocal()">⬇️ Download JSON Backup</button>
+        <button class="local-btn" (click)="triggerFileInput()">⬆️ Import from File</button>
+        <input type="file" id="file-import" accept=".json,application/json"
+          (change)="onFileSelected($event)" style="display:none" />
+      </div>
+
+      <p class="import-success" *ngIf="importSuccess">{{ importSuccess }}</p>
+      <p class="import-error" *ngIf="importError">{{ importError }}</p>
+    </section>
+
+    <!-- Save -->
+    <div class="settings-footer">
+      <button class="save-settings-btn" (click)="saveSettings()">Save Settings</button>
+      <span class="settings-saved" *ngIf="settingsSaved">✅ Settings saved!</span>
+    </div>
+
+    <!-- Danger zone -->
+    <section class="settings-section danger-zone">
+      <h2 class="settings-section-title danger">⚠️ Danger Zone</h2>
+      <p class="settings-hint">Permanently delete all your data. This cannot be undone.</p>
+      <button class="danger-btn" (click)="clearAllData()">Delete All Data</button>
+    </section>
+
+  </div>
+</div>
+

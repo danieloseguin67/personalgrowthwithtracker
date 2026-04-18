@@ -1,0 +1,32 @@
+<div class="vibes-overlay" *ngIf="visible" (click)="onOverlayClick($event)" role="dialog" aria-modal="true" aria-label="Positive vibes">
+  <div class="vibes-modal" [class.animating]="animating">
+
+    <button class="close-btn" (click)="close()" aria-label="Close">×</button>
+
+    <div class="vibes-header">
+      <span class="vibes-hearts">💛🌿💛</span>
+      <h2>You're having a tough one.</h2>
+      <p>That's real, and it's okay. Here's something for you.</p>
+    </div>
+
+    <div class="vibe-card" *ngIf="vibe" [class]="'vibe-card ' + getCategoryClass()">
+      <div class="vibe-category">
+        <span class="category-icon">{{ vibe.icon }}</span>
+        <span class="category-label">{{ vibe.categoryLabel }}</span>
+      </div>
+      <p class="vibe-text">{{ vibe.text }}</p>
+      <p class="vibe-subtext" *ngIf="vibe.subtext">{{ vibe.subtext }}</p>
+    </div>
+
+    <div class="vibes-actions">
+      <button class="another-btn" (click)="next()">
+        Give me another ✨
+      </button>
+      <button class="close-text-btn" (click)="close()">
+        I'm okay now, thank you 🌱
+      </button>
+    </div>
+
+  </div>
+</div>
+

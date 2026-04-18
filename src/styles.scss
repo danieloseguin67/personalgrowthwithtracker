@@ -1,0 +1,120 @@
+/* ── Design Tokens ────────────────────────────────────────────── */
+:root {
+  --sage: #7cb9a8;
+  --sage-light: #a8d5c8;
+  --sage-pale: #e8f5f1;
+  --lavender: #b39ddb;
+  --lavender-light: #d1c4e9;
+  --lavender-pale: #f3f0fc;
+  --amber: #f4a261;
+  --amber-pale: #fff3e0;
+  --ocean: #5ba4cf;
+  --ocean-pale: #e3f2fd;
+
+  --bg: #f8faf9;
+  --surface: #ffffff;
+  --surface-alt: #f1f7f5;
+  --border: #e2ece8;
+  --text: #2d3b35;
+  --text-muted: #6e8a7e;
+  --text-light: #9eb8af;
+
+  --shadow-sm: 0 1px 4px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.10);
+
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-pill: 999px;
+
+  --font-body: 'DM Sans', system-ui, sans-serif;
+  --font-display: 'DM Serif Display', Georgia, serif;
+
+  --transition: 0.2s ease;
+  --nav-h: 64px;
+}
+
+/* ── Reset ────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--sage); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+ul { list-style: none; }
+
+img { max-width: 100%; }
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ── App Layout ──────────────────────────────────────────────── */
+.app-main {
+  padding-top: var(--nav-h);
+  min-height: 100vh;
+  max-width: 800px;
+  margin: 0 auto;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-bottom: 48px;
+}
+
+/* ── Section Heading ─────────────────────────────────────────── */
+.section-heading {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+/* ── CTA Button ──────────────────────────────────────────────── */
+.checkin-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--sage);
+  color: white;
+  padding: 12px 24px;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: background var(--transition), transform var(--transition);
+  box-shadow: var(--shadow-sm);
+
+  &:hover { background: #5fa090; transform: translateY(-1px); text-decoration: none; }
+  &.edit { background: var(--lavender); &:hover { background: #9c7cc8; } }
+}
+
+/* ── Empty state ─────────────────────────────────────────────── */
+.empty-state {
+  text-align: center;
+  padding: 64px 24px;
+  .empty-icon { font-size: 3rem; margin-bottom: 16px; }
+  h2 { font-family: var(--font-display); margin-bottom: 8px; }
+  p { color: var(--text-muted); margin-bottom: 24px; }
+}
+
+/* ── Capitalize ──────────────────────────────────────────────── */
+.capitalize { text-transform: capitalize; }
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .app-main { padding-left: 12px; padding-right: 12px; }
+}
+

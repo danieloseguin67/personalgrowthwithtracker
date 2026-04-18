@@ -1,0 +1,156 @@
+<div class="entry-page">
+  <div class="entry-header">
+    <h1>{{ isEdit ? 'Update Your Check-In' : "Today's Check-In" }}</h1>
+    <p class="date-label">{{ today | date:'EEEE, MMMM d, y' }}</p>
+    <p class="gentle-note">There's no right or wrong way to feel. Just be honest with yourself. 🌱</p>
+  </div>
+
+  <div class="entry-card" *ngIf="entry">
+
+    <!-- Mood -->
+    <section class="form-section">
+      <h2 class="section-title">How are you today?</h2>
+      <div class="mood-grid">
+        <button *ngFor="let m of moods"
+          class="mood-btn"
+          [class.selected]="entry.mood === m.value"
+          (click)="setMood(m.value)">
+          <span class="mood-emoji">{{ m.emoji }}</span>
+          <span class="mood-label">{{ m.label }}</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Energy -->
+    <section class="form-section">
+      <h2 class="section-title">
+        Energy Level
+        <span class="value-badge" *ngIf="entry.energy">
+          {{ energyLevels | levelLabel:entry.energy }}
+        </span>
+      </h2>
+      <p class="section-hint">Pick whichever feels closest to where you are right now.</p>
+      <div class="level-picker">
+        <button *ngFor="let lvl of energyLevels"
+          class="level-card"
+          [class.selected]="entry.energy === lvl.value"
+          [class.energy]="true"
+          (click)="setEnergy(lvl.value)"
+          type="button">
+          <span class="level-emoji">{{ lvl.emoji }}</span>
+          <span class="level-label">{{ lvl.label }}</span>
+          <span class="level-desc">{{ lvl.desc }}</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Confidence -->
+    <section class="form-section">
+      <h2 class="section-title">
+        Confidence Level
+        <span class="value-badge" *ngIf="entry.confidence">
+          {{ confidenceLevels | levelLabel:entry.confidence }}
+        </span>
+      </h2>
+      <p class="section-hint">How much do you trust yourself and your decisions today?</p>
+      <div class="level-picker">
+        <button *ngFor="let lvl of confidenceLevels"
+          class="level-card"
+          [class.selected]="entry.confidence === lvl.value"
+          [class.confidence]="true"
+          (click)="setConfidence(lvl.value)"
+          type="button">
+          <span class="level-emoji">{{ lvl.emoji }}</span>
+          <span class="level-label">{{ lvl.label }}</span>
+          <span class="level-desc">{{ lvl.desc }}</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Gratitude -->
+    <section class="form-section">
+      <h2 class="section-title">Gratitude Moments <span class="count-badge">{{ entry.gratitude.length }}/5</span></h2>
+      <p class="section-hint">What are you grateful for today? Even the tiniest things count.</p>
+      <div class="tag-list">
+        <div class="tag" *ngFor="let g of entry.gratitude; let i = index">
+          {{ g }}
+          <button class="tag-remove" (click)="removeGratitude(i)" aria-label="Remove">×</button>
+        </div>
+      </div>
+      <div class="tag-input-row" *ngIf="entry.gratitude.length < 5">
+        <input type="text" [(ngModel)]="newGratitude" (keydown)="onKeyEnterGratitude($event)"
+          placeholder="e.g. a warm cup of tea..." class="tag-input" maxlength="200" />
+        <button class="add-btn" (click)="addGratitude()" [disabled]="!newGratitude.trim()">Add</button>
+      </div>
+    </section>
+
+    <!-- Boundaries Set -->
+    <section class="form-section">
+      <h2 class="section-title">Boundaries Set <span class="count-badge">{{ entry.boundariesSet.length }}/5</span></h2>
+      <p class="section-hint">Did you say no to something, protect your time, or speak up for yourself?</p>
+      <div class="tag-list">
+        <div class="tag boundary-tag" *ngFor="let b of entry.boundariesSet; let i = index">
+          {{ b }}
+          <button class="tag-remove" (click)="removeBoundary(i)" aria-label="Remove">×</button>
+        </div>
+      </div>
+      <div class="tag-input-row" *ngIf="entry.boundariesSet.length < 5">
+        <input type="text" [(ngModel)]="newBoundary" (keydown)="onKeyEnterBoundary($event)"
+          placeholder="e.g. said no to an extra meeting..." class="tag-input" maxlength="200" />
+        <button class="add-btn" (click)="addBoundary()" [disabled]="!newBoundary.trim()">Add</button>
+      </div>
+    </section>
+
+    <!-- Learning Moments -->
+    <section class="form-section">
+      <h2 class="section-title">Learning Moments <span class="count-badge">{{ entry.learningMoments.length }}/5</span></h2>
+      <p class="section-hint">What did you learn, realise, or discover today? It doesn't have to be big.</p>
+      <div class="tag-list">
+        <div class="tag learning-tag" *ngFor="let l of entry.learningMoments; let i = index">
+          {{ l }}
+          <button class="tag-remove" (click)="removeLearning(i)" aria-label="Remove">×</button>
+        </div>
+      </div>
+      <div class="tag-input-row" *ngIf="entry.learningMoments.length < 5">
+        <input type="text" [(ngModel)]="newLearning" (keydown)="onKeyEnterLearning($event)"
+          placeholder="e.g. I need more sleep to focus well..." class="tag-input" maxlength="200" />
+        <button class="add-btn" (click)="addLearning()" [disabled]="!newLearning.trim()">Add</button>
+      </div>
+    </section>
+
+    <!-- Notes -->
+    <section class="form-section">
+      <h2 class="section-title">Free Notes</h2>
+      <p class="section-hint">Anything else on your mind? This is your private space.</p>
+      <textarea [(ngModel)]="entry.notes" class="notes-area"
+        placeholder="Write freely... no structure needed here." maxlength="2000" rows="4"></textarea>
+      <span class="char-count">{{ entry.notes.length }}/2000</span>
+    </section>
+
+    <!-- Positive Vibes nudge (shows when low mood selected) -->
+    <div class="vibes-nudge" *ngIf="entry.mood === 'low' || entry.mood === 'rest-day' || entry.energy <= 3">
+      <span class="vibes-nudge-icon">💛</span>
+      <div class="vibes-nudge-text">
+        <strong>Rough day?</strong> That's okay — you're still here and that matters.
+      </div>
+      <button class="vibes-nudge-btn" (click)="openVibes()">
+        Get some good vibes ✨
+      </button>
+    </div>
+
+    <!-- Save -->
+    <div class="save-row">
+      <div class="save-success" *ngIf="saved">
+        <span class="success-icon">🌿</span> Saved! Redirecting to your dashboard...
+      </div>
+      <button class="save-btn" (click)="save()" *ngIf="!saved">
+        {{ isEdit ? 'Update Check-In' : 'Save Check-In' }}
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- Positive Vibes Modal -->
+<app-positive-vibes [visible]="vibesVisible" (closed)="closeVibes()"></app-positive-vibes>
+

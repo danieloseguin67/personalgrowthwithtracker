@@ -1,0 +1,69 @@
+<div class="history-page">
+  <div class="history-header">
+    <h1>Your Journey 🌿</h1>
+    <p class="history-subtitle">A record of your growth — no judgement, just awareness.</p>
+  </div>
+
+  <div class="empty-state" *ngIf="entries.length === 0">
+    <div class="empty-icon">🌱</div>
+    <p>No entries yet. Every journey starts with a single step.</p>
+    <a routerLink="/entry" class="checkin-btn">Start Your First Check-In</a>
+  </div>
+
+  <div class="entry-list" *ngIf="entries.length > 0">
+    <div class="entry-card" *ngFor="let e of entries">
+      <div class="entry-header" (click)="toggle(e.id)" role="button" tabindex="0"
+           (keydown.enter)="toggle(e.id)" (keydown.space)="toggle(e.id)">
+        <div class="entry-meta">
+          <span class="entry-mood">{{ getMoodEmoji(e.mood) }}</span>
+          <div class="entry-info">
+            <span class="entry-date">{{ formatDate(e.date) }}</span>
+            <div class="entry-quick-stats">
+              <span class="qs">⚡ {{ e.energy }}/10</span>
+              <span class="qs">🌟 {{ e.confidence }}/10</span>
+              <span class="qs" *ngIf="e.gratitude.length">🙏 {{ e.gratitude.length }}</span>
+              <span class="qs" *ngIf="e.boundariesSet.length">🛡 {{ e.boundariesSet.length }}</span>
+              <span class="qs" *ngIf="e.learningMoments.length">📖 {{ e.learningMoments.length }}</span>
+            </div>
+          </div>
+        </div>
+        <span class="expand-icon">{{ isExpanded(e.id) ? '▲' : '▼' }}</span>
+      </div>
+
+      <div class="entry-details" *ngIf="isExpanded(e.id)">
+
+        <div class="detail-section" *ngIf="e.gratitude.length">
+          <h3>🙏 Gratitude</h3>
+          <ul><li *ngFor="let g of e.gratitude">{{ g }}</li></ul>
+        </div>
+
+        <div class="detail-section" *ngIf="e.boundariesSet.length">
+          <h3>🛡️ Boundaries Set</h3>
+          <ul><li *ngFor="let b of e.boundariesSet">{{ b }}</li></ul>
+        </div>
+
+        <div class="detail-section" *ngIf="e.learningMoments.length">
+          <h3>📖 Learning Moments</h3>
+          <ul><li *ngFor="let l of e.learningMoments">{{ l }}</li></ul>
+        </div>
+
+        <div class="detail-section notes" *ngIf="e.notes">
+          <h3>💬 Notes</h3>
+          <p class="notes-text">{{ e.notes }}</p>
+        </div>
+
+        <div class="entry-actions">
+          <button class="delete-btn" (click)="confirmDelete(e.id)" *ngIf="confirmDeleteId !== e.id">
+            Delete Entry
+          </button>
+          <div class="confirm-delete" *ngIf="confirmDeleteId === e.id">
+            <span>Are you sure?</span>
+            <button class="confirm-yes" (click)="deleteEntry(e.id)">Delete</button>
+            <button class="confirm-no" (click)="cancelDelete()">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

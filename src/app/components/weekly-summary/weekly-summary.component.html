@@ -1,0 +1,88 @@
+<div class="summary-page">
+
+  <div class="summary-hero">
+    <h1>Weekly Reflection 🌿</h1>
+    <p class="week-range">{{ getWeekRange() }}</p>
+    <p class="summary-message">{{ summaryMessage }}</p>
+  </div>
+
+  <!-- Day dots -->
+  <div class="day-dots-card">
+    <h2 class="section-heading">Days This Week</h2>
+    <div class="day-dots">
+      <div class="day-dot" *ngFor="let d of days" [class.logged]="d.entry" [class.today]="d.date === today">
+        <span class="dot-label">{{ d.label }}</span>
+        <span class="dot-circle">
+          <span *ngIf="d.entry">{{ getMoodEmoji(d.entry.mood) }}</span>
+          <span *ngIf="!d.entry" class="dot-empty">·</span>
+        </span>
+      </div>
+    </div>
+    <p class="days-note" *ngIf="daysLogged === 0">No entries this week yet. Start now — no pressure. 🌱</p>
+    <p class="days-note" *ngIf="daysLogged > 0">{{ daysLogged }} of 7 days logged — and every single one counts.</p>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-card" *ngIf="daysLogged > 0">
+    <h2 class="section-heading">Your Numbers</h2>
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-val">{{ avgEnergy }}<span class="stat-denom">/10</span></div>
+        <div class="stat-lbl">avg energy</div>
+        <div class="stat-bar-track"><div class="stat-bar energy-fill" [style.width]="energyBarWidth(avgEnergy)"></div></div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-val">{{ avgConfidence }}<span class="stat-denom">/10</span></div>
+        <div class="stat-lbl">avg confidence</div>
+        <div class="stat-bar-track"><div class="stat-bar conf-fill" [style.width]="energyBarWidth(avgConfidence)"></div></div>
+      </div>
+      <div class="stat-item highlight">
+        <div class="stat-val">{{ totalGratitude }}</div>
+        <div class="stat-lbl">🙏 gratitude moments</div>
+      </div>
+      <div class="stat-item highlight">
+        <div class="stat-val">{{ totalBoundaries }}</div>
+        <div class="stat-lbl">🛡️ boundaries set</div>
+      </div>
+      <div class="stat-item highlight">
+        <div class="stat-val">{{ totalLearning }}</div>
+        <div class="stat-lbl">📖 learning moments</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gratitude collection -->
+  <div class="collection-card" *ngIf="allGratitude.length > 0">
+    <h2 class="section-heading">🙏 Gratitude This Week</h2>
+    <p class="collection-note">All the things you appreciated — big and small.</p>
+    <ul class="collection-list">
+      <li *ngFor="let g of allGratitude">{{ g }}</li>
+    </ul>
+  </div>
+
+  <!-- Boundaries collection -->
+  <div class="collection-card boundaries" *ngIf="allBoundaries.length > 0">
+    <h2 class="section-heading">🛡️ Boundaries You Set</h2>
+    <p class="collection-note">Every boundary is an act of self-respect.</p>
+    <ul class="collection-list">
+      <li *ngFor="let b of allBoundaries">{{ b }}</li>
+    </ul>
+  </div>
+
+  <!-- Learning collection -->
+  <div class="collection-card learning" *ngIf="allLearning.length > 0">
+    <h2 class="section-heading">📖 What You Learned</h2>
+    <p class="collection-note">Knowledge you gathered along your way.</p>
+    <ul class="collection-list">
+      <li *ngFor="let l of allLearning">{{ l }}</li>
+    </ul>
+  </div>
+
+  <!-- Encouragement footer -->
+  <div class="encouragement-footer">
+    <p>Remember: You don't need to win every day. You just need to keep going. 🌱</p>
+    <a routerLink="/entry" class="checkin-btn">Check In Today</a>
+  </div>
+
+</div>
+

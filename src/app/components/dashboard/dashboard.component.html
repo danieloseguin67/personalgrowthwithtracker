@@ -1,0 +1,144 @@
+<div class="dashboard-page">
+
+  <!-- Hero greeting -->
+  <div class="hero-banner">
+    <div class="hero-content">
+      <h1>Welcome back 🌿</h1>
+      <p class="encouraging">{{ encouragingMessage }}</p>
+      <p class="today-date">{{ today | date:'EEEE, MMMM d' }}</p>
+    </div>
+    <div class="hero-cta">
+      <a routerLink="/entry" class="checkin-btn" *ngIf="!todayEntry">
+        ✍️ Start Today's Check-In
+      </a>
+      <a routerLink="/entry" class="checkin-btn edit" *ngIf="todayEntry">
+        ✏️ Update Today's Check-In
+      </a>
+    </div>
+  </div>
+
+  <!-- Today's summary -->
+  <div class="today-card" *ngIf="todayEntry">
+    <h2 class="section-heading">Today at a Glance</h2>
+    <div class="today-grid">
+      <div class="today-stat">
+        <span class="stat-emoji">{{ getMoodEmoji(todayEntry.mood) }}</span>
+        <span class="stat-label">Mood</span>
+        <span class="stat-value capitalize">{{ todayEntry.mood }}</span>
+      </div>
+      <div class="today-stat">
+        <span class="stat-emoji">⚡</span>
+        <span class="stat-label">Energy</span>
+        <span class="stat-value">{{ todayEntry.energy }}/10</span>
+      </div>
+      <div class="today-stat">
+        <span class="stat-emoji">🌟</span>
+        <span class="stat-label">Confidence</span>
+        <span class="stat-value">{{ todayEntry.confidence }}/10</span>
+      </div>
+      <div class="today-stat">
+        <span class="stat-emoji">🙏</span>
+        <span class="stat-label">Gratitude</span>
+        <span class="stat-value">{{ todayEntry.gratitude.length }} moment{{ todayEntry.gratitude.length !== 1 ? 's' : '' }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- No entry nudge (gentle, no shame) -->
+  <div class="gentle-nudge" *ngIf="!todayEntry">
+    <span class="nudge-icon">🌸</span>
+    <p>You haven't checked in today yet — and that's completely okay.<br>Whenever you're ready, it's here for you.</p>
+  </div>
+
+  <!-- This Week -->
+  <div class="week-card" *ngIf="weekEntries.length > 0">
+    <h2 class="section-heading">This Week</h2>
+    <div class="week-stats">
+      <div class="week-stat">
+        <span class="ws-number">{{ daysLogged }}</span>
+        <span class="ws-label">days logged</span>
+      </div>
+      <div class="week-stat">
+        <span class="ws-number">{{ avgEnergy }}</span>
+        <span class="ws-label">avg energy</span>
+      </div>
+      <div class="week-stat">
+        <span class="ws-number">{{ avgConfidence }}</span>
+        <span class="ws-label">avg confidence</span>
+      </div>
+      <div class="week-stat">
+        <span class="ws-number">{{ totalGratitude }}</span>
+        <span class="ws-label">gratitude moments</span>
+      </div>
+      <div class="week-stat">
+        <span class="ws-number">{{ totalBoundaries }}</span>
+        <span class="ws-label">boundaries set</span>
+      </div>
+      <div class="week-stat">
+        <span class="ws-number">{{ totalLearning }}</span>
+        <span class="ws-label">things learned</span>
+      </div>
+    </div>
+    <a routerLink="/weekly-summary" class="view-summary-link">View full weekly reflection →</a>
+  </div>
+
+  <!-- Chart -->
+  <div class="chart-card" *ngIf="recentEntries.length > 1">
+    <h2 class="section-heading">Energy & Confidence (Last 7 Days)</h2>
+    <div class="chart-container">
+      <canvas #lineCanvas></canvas>
+    </div>
+  </div>
+
+  <!-- Recent Entries -->
+  <div class="recent-card" *ngIf="recentEntries.length > 0">
+    <h2 class="section-heading">Recent Check-Ins</h2>
+    <div class="entry-list">
+      <div class="entry-row" *ngFor="let e of recentEntries.slice().reverse()">
+        <span class="entry-date">{{ formatDate(e.date) }}</span>
+        <span class="entry-mood">{{ getMoodEmoji(e.mood) }}</span>
+        <div class="entry-bars">
+          <div class="mini-bar energy-bar" [style.width.%]="e.energy * 10" title="Energy: {{e.energy}}/10"></div>
+          <div class="mini-bar conf-bar" [style.width.%]="e.confidence * 10" title="Confidence: {{e.confidence}}/10"></div>
+        </div>
+        <span class="entry-tags">
+          <span *ngIf="e.gratitude.length" class="mini-tag">🙏 {{ e.gratitude.length }}</span>
+          <span *ngIf="e.boundariesSet.length" class="mini-tag">🛡 {{ e.boundariesSet.length }}</span>
+          <span *ngIf="e.learningMoments.length" class="mini-tag">📖 {{ e.learningMoments.length }}</span>
+        </span>
+      </div>
+    </div>
+    <a routerLink="/history" class="view-summary-link">View all history →</a>
+  </div>
+
+  <!-- Empty state -->
+  <div class="empty-state" *ngIf="recentEntries.length === 0 && !todayEntry">
+    <div class="empty-icon">🌱</div>
+    <h2>Your growth journey starts here</h2>
+    <p>No entries yet. Your first check-in takes just a minute.</p>
+    <a routerLink="/entry" class="checkin-btn">Begin Your First Check-In</a>
+  </div>
+
+  <!-- Positive Vibes boost strip -->
+  <div class="vibes-strip">
+    <span class="vibes-strip-text">Need a little lift today?</span>
+    <button class="vibes-strip-btn" (click)="openVibes()">Get some good vibes 💛</button>
+  </div>
+
+  <!-- Send a vibe strip -->
+  <div class="send-vibe-strip">
+    <div class="send-vibe-strip-text">
+      <strong>Spread some good vibes 💌</strong>
+      <span>Send a kind message to someone who deserves to hear it.</span>
+    </div>
+    <button class="send-vibe-strip-btn" (click)="openSendVibe()">Send a praise</button>
+  </div>
+
+</div>
+
+<!-- Positive Vibes Modal -->
+<app-positive-vibes [visible]="vibesVisible" (closed)="closeVibes()"></app-positive-vibes>
+
+<!-- Send Vibe Modal -->
+<app-send-vibe [visible]="sendVibeVisible" (closed)="closeSendVibe()"></app-send-vibe>
+
