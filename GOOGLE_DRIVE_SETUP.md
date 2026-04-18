@@ -34,6 +34,19 @@ This guide walks you through connecting your Personal Growth Tracker to Google D
 
 > This is what users see when they grant the app permission to access their Drive.
 
+> **Note:** Google has a newer **Google Auth Platform** UI that replaces the old OAuth consent screen. The steps below cover both.
+
+### New UI (Google Auth Platform)
+
+1. In the left sidebar, go to **Google Auth Platform** (or search for it)
+2. Click **Branding** — fill in App name, support email, and developer contact email
+3. Click **Audience** in the left sidebar
+4. Set the audience to **External**
+5. Scroll down to **Test users** → click **+ Add Users**
+6. Add your Google account email (e.g. `yourname@gmail.com`) → click **Save**
+
+### Old UI (APIs & Services → OAuth consent screen)
+
 1. Go to **APIs & Services → OAuth consent screen**
 2. Select **External** → click **Create**
 3. Fill in the required fields:
@@ -111,7 +124,7 @@ This guide walks you through connecting your Personal Growth Tracker to Google D
 | Error | Cause | Fix |
 |---|---|---|
 | `Access blocked: Storagerelay URI is not allowed` | Client type is **Desktop app**, not **Web application** | Delete and recreate the client as **Web application** (Step 4) |
-| `Error 403: access_denied` | Your email is not added as a test user | Add your email in OAuth consent screen → Test users (Step 3) |
+| `Error 403: access_denied` / `has not completed the Google verification process` | Your email is not added as a test user | **New UI:** Go to **Google Auth Platform → Audience → Test users** and add your email. **Old UI:** Go to **APIs & Services → OAuth consent screen → Test users** and add your email. See Step 3. |
 | `Upload failed` / `Download failed` | Client ID not saved, or Drive API not enabled | Check Steps 2 and 5 |
 | Sign-in popup blocked | Browser blocked the popup | Allow popups for `localhost:4200` in your browser settings |
 | `No backup file found in Google Drive` | No backup has been uploaded yet | Run an upload first before trying to restore |
