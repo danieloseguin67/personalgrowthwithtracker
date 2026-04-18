@@ -126,6 +126,38 @@ export class SendVibeComponent implements OnChanges {
       body: (name) =>
         `Hey ${name},\n\nI've been thinking about how you handled that problem and I just had to reach out.\n\nThe way you approached it — calmly, creatively, effectively — was genuinely impressive. You made something difficult look straightforward, and that's a real skill.\n\nThank you for bringing that clarity when it was needed most. 💡\n\nWith appreciation,`
     },
+    {
+      id: 'family-lucky',
+      emoji: '🏡',
+      label: 'Lucky to have you as family',
+      subject: 'I am so lucky to have you as family',
+      body: (name) =>
+        `Hey ${name},\n\nI've been thinking about how lucky I am to have you in my life — and I just wanted to say it out loud.\n\nNot everyone gets family like you. The warmth, the support, the way you just show up — it means more than I ever say.\n\nI love you, and I don't want to take that for granted. 🏡\n\nWith all my love,`
+    },
+    {
+      id: 'family-proud',
+      emoji: '🌻',
+      label: 'So proud to call you family',
+      subject: "I'm so proud to call you family",
+      body: (name) =>
+        `Hey ${name},\n\nI just wanted you to know — I am so proud of who you are.\n\nWatching you grow, face challenges, and keep showing up with such heart makes me genuinely proud to call you family. You're doing something real, even on the days it doesn't feel like it.\n\nKeep going. I'm cheering for you every step of the way. 🌻\n\nWith so much love,`
+    },
+    {
+      id: 'friend-grateful',
+      emoji: '💛',
+      label: 'So glad you are my friend',
+      subject: 'So glad you are my friend',
+      body: (name) =>
+        `Hey ${name},\n\nI was thinking about you today and just felt the need to say — I am so glad you are my friend.\n\nGood friends are rare, and you are one of the genuinely good ones. Thank you for being someone I can count on, laugh with, and trust.\n\nYou make life better just by being in it. 💛\n\nWith warmth,`
+    },
+    {
+      id: 'friend-there',
+      emoji: '🤗',
+      label: 'Thank you for always being there',
+      subject: 'Thank you for always being there for me',
+      body: (name) =>
+        `Hey ${name},\n\nI don't say this enough, but thank you for always being there.\n\nThrough the big things and the small things, you have shown up for me in ways I will never forget. That kind of friendship is something I treasure more than you know.\n\nI hope you know I'm always here for you too. 🤗\n\nWith gratitude and love,`
+    },
   ];
 
   get selectedPraise(): PraiseType | undefined {
