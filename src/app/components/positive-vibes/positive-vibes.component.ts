@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from
 import { CommonModule } from '@angular/common';
 
 interface Vibe {
-  category: 'quote' | 'affirmation' | 'breathe' | 'selfcare';
+  category: 'quote' | 'affirmation' | 'breathe' | 'selfcare' | 'family';
   icon: string;
   categoryLabel: string;
   text: string;
@@ -58,6 +58,14 @@ export class PositiveVibesComponent implements OnChanges {
     { category: 'selfcare', icon: '✨', categoryLabel: 'One small thing you could do', text: 'Make yourself something warm to drink. Hold the cup in both hands and just feel the warmth.' },
     { category: 'selfcare', icon: '✨', categoryLabel: 'One small thing you could do', text: 'Write down one thing — no matter how small — that went okay today. It exists, even now.' },
     { category: 'selfcare', icon: '✨', categoryLabel: 'One small thing you could do', text: 'Unclench your jaw. Drop your shoulders. Unclench your hands. Your body holds stress before you notice.' },
+
+    // Family & friends
+    { category: 'family', icon: '🤍', categoryLabel: 'People who love you', text: 'Somewhere right now, someone is thinking about you warmly — a parent, a friend, a sibling — and wishing you well.' },
+    { category: 'family', icon: '🤍', categoryLabel: 'People who love you', text: 'You have shown up for the people you love in ways they will never forget. That matters deeply.' },
+    { category: 'family', icon: '🤍', categoryLabel: 'People who love you', text: 'The laughs you have shared, the quiet moments, the inside jokes — these are the things that make a life rich.' },
+    { category: 'family', icon: '🤍', categoryLabel: 'People who love you', text: 'You are someone\'s safe place. Your presence in their life is a gift bigger than you know.' },
+    { category: 'family', icon: '🤍', categoryLabel: 'People who love you', text: 'The people who love you do not need you to be perfect. They just need you to be you.' },
+    { category: 'family', icon: '🤍', categoryLabel: 'People who love you', text: 'Think of one person who has made you feel seen and loved. Hold that for a moment — that connection is real, and it is yours.' },
   ];
 
   private usedIndexes: Set<number> = new Set();
