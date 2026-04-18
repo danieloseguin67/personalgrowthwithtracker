@@ -32,7 +32,7 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: npx ng build --configuration production --base-href /personalgrowthwithtracker/
+        run: npx ng build --configuration production --base-href /
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
